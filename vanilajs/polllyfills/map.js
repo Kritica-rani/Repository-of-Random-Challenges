@@ -12,4 +12,3 @@ Array.prototype.myMap = function (cb) {
 };
 
 const updated = arr.myMap((item) => item * 5);
-console.log("updated", updated);
