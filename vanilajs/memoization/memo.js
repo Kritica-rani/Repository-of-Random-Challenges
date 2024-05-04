@@ -1,41 +1,22 @@
-// //Create a cache
-// //Finding Fibonacci of a number using memoization
-// function add(a, b) {
-//   return a + b;
-// }
-// const memoizedAdd = memoizeOne(add);
+function add(a, b) {
+  return a + b;
+}
 
-// memoizedAdd(1, 2);
-// // add function: is called
-// // [new value returned: 3]
+const memoizefn = (fn) => {
+  const map = new Map();
+  return function (...args) {
+    const keys = args.join("_");
+    if (map.has(keys)) {
+      console.log("from Cache");
+      return map.get(keys);
+    }
+    const result = fn(...args);
+    map.set(keys, result);
+    console.log("map", map);
+    return result;
+  };
+};
 
-// memoizedAdd(1, 2);
-// // add function: not called
-// // [cached result is returned: 3]
-
-// memoizedAdd(2, 3);
-// // add function: is called
-// // [new value returned: 5]
-
-// memoizedAdd(2, 3);
-// // add function: not called
-// // [cached result is returned: 5]
-
-// memoizedAdd(1, 2);
-// // add function: is called
-// // [new value returned: 3]
-// // 👇
-// // While the result of `add(1, 2)` was previously cached
-// // `(1, 2)` was not the *latest* arguments (the last call was `(2, 3)`)
-// // so the previous cached result of `(1, 3)` was lost
-
-// function add(a, b) {
-//   return a + b;
-// }
-// function memoize(fn) {
-//   let cache = {};
-//   return function (...args) {
-//     const arguments = args.toString();
-
-//   };
-// }
+const addition = memoizefn(add);
+console.log(addition(2, 3));
+console.log(addition(2, 3));
